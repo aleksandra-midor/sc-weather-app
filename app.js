@@ -50,11 +50,15 @@ document.addEventListener('DOMContentLoaded', function() {
             function displayTable() {
                 
                 var html = ' '
+                html+='<tr>'
+                html+='<th>'+'Date'+'</th>';
+                html+='<th>'+'Temperature'+'</th>';
+                html+='</tr>'
                 for (var i = 0; i < weather.length; i++) {
+
                   html+='<tr>'
                   html+='<td>'+ weather[i].date +'</td>';
                   html+='<td>'+ weather[i].temperature +'</td>';
-
                   html+='</tr>'
                 }
             
@@ -75,16 +79,19 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 });
 
+genTemps = []
 
+function generateTemp() {
+  for (var i = 1; i < 13; i++) {
+    var newDayTemp = {
+      temperature: Math.floor(Math.random() * 50) ,
+      date: '2020-' + i + '-15'
+    }
+    genTemps.push(newDayTemp);
+  }
+}
+generateTemp()
+console.log(genTemps);
 
-
-
-
-
-//var date = document.querySelector('.form__label')
-
-//document.addEventListener('DOMContentLoaded', function() {
- //   console.log("DOM has been loaded")
-//});
 
 
