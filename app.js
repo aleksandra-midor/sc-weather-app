@@ -6,50 +6,77 @@ const weatherAdded = [{temperature: 04, date:'2020-03-15'},{temperature:10, date
 document.addEventListener('DOMContentLoaded', function() {
     weather = weather.concat(weatherAdded)
     console.log("DOM has been loaded",weather)
+    displayTable()
+
+    const weatherTemp = weather.map( dayWeather => dayWeather.temperature);
+    console.log(weatherTemp);
+
+    document.getElementById('add').addEventListener('click', function(){
+        
+        var temp = parseInt(document.querySelector('#temp').value);
+        var date = document.querySelector('#date').value;
+        //var existingMonth = date
+        
+        
+        if (Number.isInteger(temp) === true && date !== '') {
+            
+            var dayWeather = {
+                temperature: temp,
+                date: date
+            }
+            var dateSplited = date.split('-') 
+    
+            
+            var foundIndex = weather.findIndex ( x => {
+    
+                var xDateSplited = x.date.split('-')
+
+                    return xDateSplited[1] === dateSplited[1]
+                }) 
+                console.log(foundIndex)
+                if (foundIndex === -1) {
+                    weather.push(dayWeather)
+            }
+    
+        }  else {
+            alert ('Please input a number as a date and choose a date')
+        }
+        displayTable()
+        console.log(weather)
+
+
+
+    })
+            function displayTable() {
+                
+                var html = ' '
+                for (var i = 0; i < weather.length; i++) {
+                  html+='<tr>'
+                  html+='<td>'+ weather[i].date +'</td>';
+                  html+='<td>'+ weather[i].temperature +'</td>';
+
+                  html+='</tr>'
+                }
+            
+            document.getElementById("tableWeather").innerHTML = html
+            }
+    
+    document.getElementById('maxTemp').addEventListener('click', function(){
+        
+        var maxTemp = Math.max(...weatherTemp);
+        console.log(maxTemp)
+    
+    })
+
+    document.getElementById('minTemp').addEventListener('click', function(){
+
+        var minTemp = Math.min(...weatherTemp);
+        console.log(minTemp)
+    })
 });
 
 
-document.getElementById('add').addEventListener('click', function(){
-    
-    var temp = parseInt(document.querySelector('#temp').value);
-    var date = document.querySelector('#date').value;
-    //var existingMonth = date
-    
-    
-    if (Number.isInteger(temp) === true && date !== '') {
-        
-        var dayWeather = {
-            temperature: temp,
-            date: date
-        }
-        var dateSplited = date.split('-') 
 
-        
-        var foundIndex = weather.findIndex ( x => {
-            // console.log(x)
-
-            var xDateSplited = x.date.split('-')
-            // console.log(xDateSplited[1])
-            // if (xDateSplited[1] !== dateSplited[1]) {
-                //     return false
-                // } 
-                return xDateSplited[1] === dateSplited[1]
-            }) 
-            console.log(foundIndex)
-            if (foundIndex === -1) {
-                weather.push(dayWeather)
-        }
-
-
-    }  else {
-        alert ('Please input a number')
-    }
-    console.log(weather)
-})
-
-
-//var maxTemp = Math.max(...weather.temperature);
-//console.log(maxTemp)
 
 
 
