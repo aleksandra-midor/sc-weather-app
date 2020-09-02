@@ -1,85 +1,71 @@
-let weather = [];
-// line below should be remover at the end and above LET weather changed to CONST 
-const weatherAdded = [{temperature: 04, date:'2020-03-15'},{temperature:10, date:'2020-04-15'},{temperature:28, date:'2020-07-15'},{temperature:02, date:'2020-11-15'}];
+const weather = [];
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    weather = weather.concat(weatherAdded)
     console.log("DOM has been loaded",weather)
     displayTable()
 
-    const weatherTemp = weather.map( dayWeather => dayWeather.temperature);
-    console.log(weatherTemp);
+    
+    document.getElementById('maxTemp').addEventListener('click', highestTemp); 
 
-    document.getElementById('add').addEventListener('click', function(){
-        
-        var temp = parseInt(document.querySelector('#temp').value);
-        var date = document.querySelector('#date').value;
-        //var existingMonth = date
-        
-        
-        if (Number.isInteger(temp) === true && date !== '') {
-            
-            var dayWeather = {
-                temperature: temp,
-                date: date
-            }
-            var dateSplited = date.split('-') 
-    
-            
-            var foundIndex = weather.findIndex ( x => {
-    
-                var xDateSplited = x.date.split('-')
+    document.getElementById('minTemp').addEventListener('click', lowestTemp);
 
-                    return xDateSplited[1] === dateSplited[1]
-                }) 
-                console.log(foundIndex)
-                if (foundIndex === -1) {
-                    weather.push(dayWeather)
-            }
+    document.getElementById('seed').addEventListener('click', generateTemp);
+
+    document.getElementById('add').addEventListener('click', addRecord);
+  });
+  
+
+
+  function displayTable() {
+      
+      var html = ' '
+      html+='<tr>'
+      html+='<th>'+'Date'+'</th>';
+      html+='<th>'+'Temperature'+'</th>';
+      html+='</tr>'
+      for (var i = 0; i < weather.length; i++) {
+
+        html+='<tr>'
+        html+='<td>'+ weather[i].date +'</td>';
+        html+='<td>'+ weather[i].temperature +'</td>';
+        html+='</tr>'
+      }
+
+  document.getElementById("tableWeather").innerHTML = html
+  }
+
+
+
+  function addRecord() { 
+    var temp = parseInt(document.querySelector('#temp').value);
+    var date = document.querySelector('#date').value;
     
-        }  else {
-            alert ('Please input a number as a date and choose a date')
+
+    if (Number.isInteger(temp) === true && date !== '') {
+        var dayWeather = {
+            temperature: temp,
+            date: date
         }
-        displayTable()
-        console.log(weather)
+        var dateSplited = date.split('-') 
+
+        var foundIndex = weather.findIndex ( x => {
+            var xDateSplited = x.date.split('-')
+                return xDateSplited[1] === dateSplited[1]
+            }) 
+            console.log(foundIndex)
+            if (foundIndex === -1) {
+                weather.push(dayWeather)
+        }
+    }  else {
+        alert ('Please input a number as a date and choose a date')
+    }
+
+    displayTable()
+    console.log(weather)
+}
 
 
-
-    })
-            function displayTable() {
-                
-                var html = ' '
-                html+='<tr>'
-                html+='<th>'+'Date'+'</th>';
-                html+='<th>'+'Temperature'+'</th>';
-                html+='</tr>'
-                for (var i = 0; i < weather.length; i++) {
-
-                  html+='<tr>'
-                  html+='<td>'+ weather[i].date +'</td>';
-                  html+='<td>'+ weather[i].temperature +'</td>';
-                  html+='</tr>'
-                }
-            
-            document.getElementById("tableWeather").innerHTML = html
-            }
-    
-    document.getElementById('maxTemp').addEventListener('click', function(){
-        
-        var maxTemp = Math.max(...weatherTemp);
-        console.log(maxTemp)
-    
-    })
-
-    document.getElementById('minTemp').addEventListener('click', function(){
-
-        var minTemp = Math.min(...weatherTemp);
-        console.log(minTemp)
-    })
-});
-
-genTemps = []
 
 function generateTemp() {
   for (var i = 1; i < 13; i++) {
@@ -87,11 +73,38 @@ function generateTemp() {
       temperature: Math.floor(Math.random() * 50) ,
       date: '2020-' + i + '-15'
     }
-    genTemps.push(newDayTemp);
+    weather.push(newDayTemp);
   }
+  displayTable()
 }
-generateTemp()
-console.log(genTemps);
 
 
 
+function highestTemp() {
+  var highTemp = 0;
+  const weatherTemp = weather.map( dayWeather => dayWeather.temperature);
+  console.log(weatherTemp);
+
+  for (var i = 0; i < weatherTemp.length; i++) {
+    if (highTemp < weatherTemp[i]) {
+      highTemp = weatherTemp[i]
+    }
+  }
+  console.log('Max temperature is' + highTemp);
+}
+
+
+
+
+function lowestTemp() {
+  var lowTemp =100;
+  const weatherTemp = weather.map( dayWeather => dayWeather.temperature);
+  console.log(weatherTemp);
+
+  for (var i = 0; i < weatherTemp.length; i++) {
+    if (lowTemp > weatherTemp[i]) {
+      lowTemp = weatherTemp[i]
+    }
+  }
+  console.log('Min temperature is' + lowTemp);
+}
