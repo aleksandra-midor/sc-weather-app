@@ -5,14 +5,15 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM has been loaded",weather)
     // displayTable()
 
+    document.getElementById('add').addEventListener('click', addRecord);
+    
+    document.getElementById('average').addEventListener('click', averTemp);
     
     document.getElementById('maxTemp').addEventListener('click', highestTemp); 
 
     document.getElementById('minTemp').addEventListener('click', lowestTemp);
-
+    
     document.getElementById('seed').addEventListener('click', generateTemp);
-
-    document.getElementById('add').addEventListener('click', addRecord);
   });
   
 
@@ -99,6 +100,17 @@ function generateTemp() {
 }
 
 
+function averTemp() {
+  var sumTemp = 0;
+
+  for (var i = 0; i < weather.length; i++) {
+   sumTemp += weather[i].temperature
+   var averTemp = sumTemp / weather.length
+  }
+  document.getElementById("message").innerHTML = 'Average temperature is ' + averTemp + '&deg;C'
+}
+
+
 
 function highestTemp() {
   var highTemp = 0;
@@ -108,7 +120,7 @@ function highestTemp() {
       highTemp = weather[i].temperature
     }
   }
-  document.getElementById("message__first").innerHTML = 'Max temperature is ' + highTemp + '&deg;C'
+  document.getElementById("message").innerHTML = 'Max temperature is ' + highTemp + '&deg;C'
   console.log('Max temperature is ' + highTemp);
 }
 
@@ -122,7 +134,7 @@ function lowestTemp() {
       lowTemp = weather[i].temperature
     }
   }
-  document.getElementById("message__second").innerHTML = 'Min temperature is ' + lowTemp + '&deg;C'
+  document.getElementById("message").innerHTML = 'Min temperature is ' + lowTemp + '&deg;C'
   console.log('Min temperature is ' + lowTemp);
 }
 
@@ -152,9 +164,6 @@ function randomDate() {
 }
 
 
-var wExc = [{temperature: 50, date: '2020-02-31'},{temperature: 23, date: '2020-11-16'},{temperature: 6, date: '2020-03-07'} ]
-
-
 
 function dateSorting(array) {
   var sortedWeather = []
@@ -180,9 +189,6 @@ function dateSorting(array) {
   return sortedWeather.reverse()
 
 }
-
-
-//dateSorting(wExc);
 
 
 
