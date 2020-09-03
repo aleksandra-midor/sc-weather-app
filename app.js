@@ -3,7 +3,7 @@ let weather = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM has been loaded",weather)
-    displayTable()
+    // displayTable()
 
     
     document.getElementById('maxTemp').addEventListener('click', highestTemp); 
@@ -43,15 +43,36 @@ document.addEventListener('DOMContentLoaded', function() {
     var temp = parseInt(document.querySelector('#temp').value);
     var date = document.querySelector('#date').value;
     
+    var messageTemp = document.getElementById('temp')
+    var messageDate = document.getElementById('date')
+
 
     if (Number.isInteger(temp) === true && date !== '') {
-        var dayWeather = {
-            temperature: temp,
-            date: date
-        }
-        
-        weather.push(dayWeather)
-        sortingWeather()
+      var dayWeather = {
+        temperature: temp,
+        date: date
+      }
+      weather.push(dayWeather)
+      weather = dateSorting(weather)
+
+    }
+    displayTable()
+    
+    
+    if (Number.isInteger(temp) === false ) { 
+      messageTemp.classList.add("form__input--error")
+    } else {
+      messageTemp.classList.remove("form__input--error")
+    }
+    
+    
+    if (date === '') {
+      // alert ('Please input a number as a date and choose a date')
+      messageDate.classList.add("form__input--error")
+    } else {
+      messageDate.classList.remove("form__input--error")    
+    }
+
         // var dateSplited = date.split('-') 
         // var foundIndex = weather.findIndex ( x => {
         //     var xDateSplited = x.date.split('-')
@@ -60,12 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
         //     console.log(foundIndex)
         //     if (foundIndex === -1) {
         //     }
-    }  else {
-      alert ('Please input a number as a date and choose a date')
-    }
           
-    displayTable()
-    console.log(weather)
 }
 
 
@@ -86,30 +102,28 @@ function generateTemp() {
 
 function highestTemp() {
   var highTemp = 0;
-  const weatherTemp = weather.map( dayWeather => dayWeather.temperature);
-  console.log(weatherTemp);
 
-  for (var i = 0; i < weatherTemp.length; i++) {
-    if (highTemp < weatherTemp[i]) {
-      highTemp = weatherTemp[i]
+  for (var i = 0; i < weather.length; i++) {
+    if (highTemp < weather[i].temperature) {
+      highTemp = weather[i].temperature
     }
   }
-  console.log('Max temperature is' + highTemp);
+  document.getElementById("message__first").innerHTML = 'Max temperature is ' + highTemp + '&deg;C'
+  console.log('Max temperature is ' + highTemp);
 }
 
 
 
 function lowestTemp() {
   var lowTemp =100;
-  const weatherTemp = weather.map( dayWeather => dayWeather.temperature);
-  console.log(weatherTemp);
 
-  for (var i = 0; i < weatherTemp.length; i++) {
-    if (lowTemp > weatherTemp[i]) {
-      lowTemp = weatherTemp[i]
+  for (var i = 0; i < weather.length; i++) {
+    if (lowTemp > weather[i].temperature) {
+      lowTemp = weather[i].temperature
     }
   }
-  console.log('Min temperature is' + lowTemp);
+  document.getElementById("message__second").innerHTML = 'Min temperature is ' + lowTemp + '&deg;C'
+  console.log('Min temperature is ' + lowTemp);
 }
 
 
