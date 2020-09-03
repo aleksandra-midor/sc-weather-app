@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function displayTable() {
     
-    dateSorting(weather);
+    weather = dateSorting(weather);
       
     var html = ' '
     html+='<tr>'
@@ -124,29 +124,18 @@ function randomDate() {
   var month = dateObj.getMonth() + 1;
   var day = dateObj.getDate();
   var year = dateObj.getFullYear();
-  
+
+  if (month < 10) {
+    month = '0' + month
+  }  
+
+  if (day < 10) {
+    day = '0' + day
+  }
+
   var newDate = year + '-' + month + '-' + day;
   return newDate
 }
-
-
-
-// SCHOOL EXAMPLE - HOW TO GENERATE RANDOM DATE AND NUMBER (TEMPERATURE)
-
-// weatherNew = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => {
-//   return {
-//     date: new Date(
-//       `2020-${Math.ceil(Math.random() * 12)}-${Math.ceil(
-//         Math.random() * 28
-//       )}`
-//     ).toISOString(),
-//     temperature: Math.floor(Math.random() * num * 10),
-//   };
-// });
-// console.log(weatherNew);
-
-
-
 
 
 var wExc = [{temperature: 50, date: '2020-02-31'},{temperature: 23, date: '2020-11-16'},{temperature: 6, date: '2020-03-07'} ]
@@ -174,11 +163,12 @@ function dateSorting(array) {
   }
 
   console.log(sortedWeather);
-  return sortedWeather
+  return sortedWeather.reverse()
+
 }
 
 
-dateSorting(wExc);
+//dateSorting(wExc);
 
 
 
@@ -199,3 +189,19 @@ var length = array.length
     // return array;
 }
 
+
+
+
+// SCHOOL EXAMPLE - HOW TO GENERATE RANDOM DATE AND NUMBER (TEMPERATURE)
+
+// weatherNew = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => {
+//   return {
+//     date: new Date(
+//       `2020-${Math.ceil(Math.random() * 12)}-${Math.ceil(
+//         Math.random() * 28
+//       )}`
+//     ).toISOString(),
+//     temperature: Math.floor(Math.random() * num * 10),
+//   };
+// });
+// console.log(weatherNew);
