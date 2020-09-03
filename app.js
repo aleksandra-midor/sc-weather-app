@@ -1,4 +1,4 @@
-const weather = [];
+let weather = [];
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -18,21 +18,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   function displayTable() {
+    
+    dateSorting(weather);
       
-      var html = ' '
+    var html = ' '
+    html+='<tr>'
+    html+='<th>'+'Date'+'</th>';
+    html+='<th>'+'Temperature'+'</th>';
+    html+='</tr>'
+    for (var i = 0; i < weather.length; i++) {
+
       html+='<tr>'
-      html+='<th>'+'Date'+'</th>';
-      html+='<th>'+'Temperature'+'</th>';
+      html+='<td>'+ weather[i].date +'</td>';
+      html+='<td>'+ weather[i].temperature +'</td>';
       html+='</tr>'
-      for (var i = 0; i < weather.length; i++) {
+    }
 
-        html+='<tr>'
-        html+='<td>'+ weather[i].date +'</td>';
-        html+='<td>'+ weather[i].temperature +'</td>';
-        html+='</tr>'
-      }
-
-  document.getElementById("tableWeather").innerHTML = html
+   document.getElementById("tableWeather").innerHTML = html
   }
 
 
@@ -49,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         weather.push(dayWeather)
+        sortingWeather()
         // var dateSplited = date.split('-') 
         // var foundIndex = weather.findIndex ( x => {
         //     var xDateSplited = x.date.split('-')
@@ -96,7 +99,6 @@ function highestTemp() {
 
 
 
-
 function lowestTemp() {
   var lowTemp =100;
   const weatherTemp = weather.map( dayWeather => dayWeather.temperature);
@@ -111,13 +113,13 @@ function lowestTemp() {
 }
 
 
-// new function
+// new functions
 
 function randomDate() {
-  var start = new Date(2020, 0, 1)
+  var start = new Date(2020,00,01)
   var end = new Date(2020,11,31)
   var dateObj = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-  console.log(end.getTime())
+
 
   var month = dateObj.getMonth() + 1;
   var day = dateObj.getDate();
@@ -126,27 +128,74 @@ function randomDate() {
   var newDate = year + '-' + month + '-' + day;
   return newDate
 }
-console.log(randomDate());
+
+
+
+// SCHOOL EXAMPLE - HOW TO GENERATE RANDOM DATE AND NUMBER (TEMPERATURE)
+
+// weatherNew = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => {
+//   return {
+//     date: new Date(
+//       `2020-${Math.ceil(Math.random() * 12)}-${Math.ceil(
+//         Math.random() * 28
+//       )}`
+//     ).toISOString(),
+//     temperature: Math.floor(Math.random() * num * 10),
+//   };
+// });
+// console.log(weatherNew);
 
 
 
 
 
-function lowestTemp() {
-  var lowTemp =100;
-  const weatherTemp = weather.map( dayWeather => dayWeather.temperature);
-  console.log(weatherTemp);
+var wExc = [{temperature: 50, date: '2020-02-31'},{temperature: 23, date: '2020-11-16'},{temperature: 6, date: '2020-03-07'} ]
 
-  for (var i = 0; i < weatherTemp.length; i++) {
-    if (lowTemp > weatherTemp[i]) {
-      lowTemp = weatherTemp[i]
+
+
+function dateSorting(array) {
+  var sortedWeather = []
+  var weatherDates = [];
+
+  for (i = 0; i < array.length; i++) {
+    var dateSplit = array[i].date
+    weatherDates.push(dateSplit);
+  }
+  console.log(weatherDates)
+  bubble(weatherDates)
+  console.log(weatherDates)
+
+  for (i = 0; i < weatherDates.length; i++) {
+    for (j = 0; j < array.length; j++) {
+      if (weatherDates[i] === array[j].date) {
+        sortedWeather.push(array[j])
+      } 
     }
   }
-  console.log('Min temperature is' + lowTemp);
+
+  console.log(sortedWeather);
+  return sortedWeather
 }
 
 
+dateSorting(wExc);
 
 
 
+function bubble(array) {
+  
+var length = array.length
+   
+    for (let i=0; i< length; i++) {
+      for (let j=0; j<length-1;j++) {
+        if (array[j] >array[j+1]) {
+          //  swap
+          let hold = array[j]
+          array[j] = array[j+1]
+          array[j+1] = hold
+        }
+      }
+    }
+    // return array;
+}
 
