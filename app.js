@@ -190,7 +190,7 @@ function dateSorting(array) {
   }
 
   console.log(sortedWeather);
-  return sortedWeather.reverse()
+  return sortedWeather
 
 }
 
