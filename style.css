@@ -73,7 +73,7 @@ form * {
   font-weight: 400;
   font-size: 1.1em;
   padding: 10px 16px;
-  margin: 10px 0;
+  margin: 30px 0 10px 0;
   color: #fff;
   background: #0552B5;
   border: 2px solid #0552B5;
@@ -119,7 +119,7 @@ table thead tr {
 table th,
 table td {
   padding: 12px 15px;
-  
+  text-align: left;
 }
 
 table tbody tr {
