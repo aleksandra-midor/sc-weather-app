@@ -1,5 +1,4 @@
 let weather = [];
-var fetchedWeather = [];
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -19,69 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
 
-  fetch ('https://my-json-server.typicode.com/aleksandra-midor/sc-weather-app-json-data/weather2019')
-  .then(response => response.json())
-  .then(data => { fetchedWeather = data
-    console.log(data)
-  });
-
-
-  function displayChart(arr1,arr2) {
-    var myData = {
-      labels: [],
-      datasets: [{
-        label: 'temperature in 2020',
-        data: [],
-        borderColor: [
-          '#2186EB'
-        ],
-        borderWidth: 2,
-        fill: false
-      },
-      {
-        label: 'temperature in 2019',
-        data: [],
-        borderColor: [
-          '#DE3A11'
-        ],
-        borderWidth: 2,
-        fill: false
-      }
-    ],
-  }
-  
-  
-  for(i = 0; i < arr1.length; i++) {
-    myData.labels.push(arr1[i].date);
-    myData.datasets[0].data.push(arr1[i].temperature);
-  }
-  
-  console.log(arr2)
-  for(i = 0; i < arr2.length; i++) {
-    myData.labels.push(arr2[i].date);
-    myData.datasets[1].data.push(arr2[i].temperature);
-  }
-
-  
-  
-  var ctx = document.getElementById('myChart');
-  var myChart = new Chart(ctx, {
-    type: 'line',
-    data: myData,
-    options: {
-      scales: {
-        yAxes: [{                                                    
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
-  });
-  console.log(myChart)
-}
-
-
 
   function displayTable() {
     
@@ -100,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
       html+='</tr>'
     }
 
-    displayChart(weather,fetchedWeather);
+    displayChart(weather);
 
    document.getElementById("tableWeather").innerHTML = html
   }
@@ -296,6 +232,44 @@ var length = array.length
 
 
 
+function displayChart(arr) {
+
+  
+  var myData = {
+    labels: [],
+    datasets: [{
+      label: 'temperature in 2020',
+      data: [],
+      borderColor: [
+        '#2186EB'
+          ],
+          borderWidth: 2,
+          fill: false
+        }
+      ],
+    }
+    
+
+    for(i = 0; i < arr.length; i++) {
+      myData.labels.push(arr[i].date);
+      myData.datasets[0].data.push(arr[i].temperature);
+    }
 
 
+  var ctx = document.getElementById('myChart');
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: myData,
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+  console.log(myChart)
+}
 
