@@ -1,7 +1,8 @@
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: proxima-nova, sans-serif;
   padding: 0;
   margin: 0;
+  color: #1F2933;
 }
 h1,
 h2,
@@ -9,7 +10,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Domine", serif;
+  font-family: proxima-nova, sans-serif;
 }
 
 #root {
@@ -17,7 +18,12 @@ h6 {
 }
 
 h1 {
-  font-weight: bold;
+  
+font-family: proxima-nova, sans-serif;
+font-weight: 700;
+font-style: normal;
+color: #002159;
+
 }
 
 form {
@@ -69,8 +75,8 @@ form * {
   padding: 10px 16px;
   margin: 10px 0;
   color: #fff;
-  background: #14b64a;
-  border: 2px solid #0fa942;
+  background: #0552B5;
+  border: 2px solid #0552B5;
   border-radius: 5px;
   cursor: pointer;
   outline: none;
@@ -113,6 +119,7 @@ table thead tr {
 table th,
 table td {
   padding: 12px 15px;
+  
 }
 
 table tbody tr {
@@ -135,4 +142,8 @@ table tbody tr:hover {
   border: 1px solid black;
   padding: 10px 25px;
   width: 400px;
+}
+
+#message {
+  color: #0552B5;
 }

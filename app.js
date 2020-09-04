@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('minTemp').addEventListener('click', lowestTemp);
     
     document.getElementById('seed').addEventListener('click', generateTemp);
+
   });
   
 
@@ -34,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
       html+='<td>'+ weather[i].temperature +'</td>';
       html+='</tr>'
     }
+
+    displayChart(weather);
 
    document.getElementById("tableWeather").innerHTML = html
   }
@@ -228,8 +231,6 @@ var length = array.length
 // console.log(weatherNew);
 
 
-var exercise = [{temperature: 23, date: '2020-02-13'},{temperature: 12, date: '2020-05-03'},{temperature: 27, date: '2020-07-19'}]
-
 
 function displayChart(arr) {
 
@@ -240,7 +241,7 @@ function displayChart(arr) {
       label: 'temperature in 2020',
       data: [],
       borderColor: [
-        'rgba(255, 99, 132, 1)'
+        '#2186EB'
           ],
           borderWidth: 2,
           fill: false
@@ -271,4 +272,4 @@ function displayChart(arr) {
   });
   console.log(myChart)
 }
-displayChart(exercise);
+displayChart(weather);
