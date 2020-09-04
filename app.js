@@ -176,10 +176,11 @@ function dateSorting(array) {
   console.log(weatherDates)
   bubble(weatherDates)
   console.log(weatherDates)
+  var prop = 'date'
 
   for (i = 0; i < weatherDates.length; i++) {
     for (j = 0; j < array.length; j++) {
-      if (weatherDates[i] === array[j].date) {
+      if (weatherDates[i] === array[j][prop]) {
         sortedWeather.push(array[j])
       } 
     }
@@ -225,3 +226,49 @@ var length = array.length
 //   };
 // });
 // console.log(weatherNew);
+
+
+var exercise = [{temperature: 23, date: '2020-02-13'},{temperature: 12, date: '2020-05-03'},{temperature: 27, date: '2020-07-19'}]
+
+
+function displayChart(arr) {
+
+  
+  var myData = {
+    labels: [],
+    datasets: [{
+      label: 'temperature in 2020',
+      data: [],
+      borderColor: [
+        'rgba(255, 99, 132, 1)'
+          ],
+          borderWidth: 2,
+          fill: false
+        }
+      ],
+    }
+    
+
+    for(i = 0; i < arr.length; i++) {
+      myData.labels.push(arr[i].date);
+      myData.datasets[0].data.push(arr[i].temperature);
+    }
+
+
+  var ctx = document.getElementById('myChart');
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: myData,
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+  console.log(myChart)
+}
+displayChart(exercise);
